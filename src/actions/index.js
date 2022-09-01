@@ -1,9 +1,9 @@
 import jsonPlaceholder from '../apis/jsonPlaceholder'
 
 // action creators
-// when using redux sa imo action creator 
-// ang middleware e check niya if imo action is a function and if it is mag pasa cya ug dispatch sa imo func 
-// dispatch - we can change any data, getState - we can read or access data or updated na data
+// returns a function with access to dispatch function
+// fetchPosts = () => async (dispatch, getState) - dispatch - we can change any state, getState - we can read or access state or updated na state
+// dispatch, getState they're both functions but as a argument ni fetchPosts and e call ang dispatch or getState like ex ani g call or dispatch sa sulod dispatch({ type: 'FETCH_POSTS', payload: response })
 export const fetchPosts = () => async dispatch => {
     const response = await jsonPlaceholder.get('/posts')
   
