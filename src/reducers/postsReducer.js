@@ -6,10 +6,10 @@ export default (state = [], action) => {
     // return state
 
     // switch statement
-    switch (action.type){
+    switch (action.type) {
         case 'FETCH_POSTS':
-            return action.payload
+            return action.payload;
         default:
-            return state
+            return state;
     }
 }
