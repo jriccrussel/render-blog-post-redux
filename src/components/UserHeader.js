@@ -8,7 +8,9 @@ class UserHeader extends Component {
     }    
 
     render() {
-        const user = this.props.users.find(user => user.id === this.props.userId)
+        // const user = this.props.users.find(user => user.id === this.props.userId)
+        // { user } = this.props - naa na tai access sa state ang userId
+        const { user } = this.props
 
         if(!user) {
             return null
@@ -20,8 +22,12 @@ class UserHeader extends Component {
     }
 }
 
-const mapStateToProps = state => {
-    return { users: state.users }
+// state - read sa state/data
+// owmProps - props ato e send to UserHeader component
+// users: state.users.find(user => user.id === ownProps.userId) - add ug logic sa mapStateToProps
+const mapStateToProps = (state, ownProps) => {
+    // return { users: state.users }
+    return { users: state.users.find(user => user.id === ownProps.userId) }
   }
 
 export default connect(mapStateToProps, { fetchUser })(UserHeader)
