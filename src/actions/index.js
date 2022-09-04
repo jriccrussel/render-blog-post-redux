@@ -1,3 +1,4 @@
+import _ from 'lodash' // javascript util
 import jsonPlaceholder from '../apis/jsonPlaceholder'
 
 // action creators
@@ -11,8 +12,16 @@ export const fetchPosts = () => async dispatch => {
 }
 
 // fetch user by id
-export const fetchUser = id => async dispatch => {
+// export const fetchUser = id => async dispatch => {
+//     const response = await jsonPlaceholder.get(`/users/${id}`)
+  
+//     dispatch({ type: 'FETCH_USER', payload: response.data })
+// }
+export const fetchUser = id => dispatch => _fetchUser(id, dispatch)
+
+// .memoize prevents the api for over fetching
+const _fetchUser = _.memoize(async (id, dispatch) => {
     const response = await jsonPlaceholder.get(`/users/${id}`)
   
     dispatch({ type: 'FETCH_USER', payload: response.data })
-}
+})
