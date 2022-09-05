@@ -33,6 +33,13 @@ export const fetchPostsAndUsers = () => async (dispatch, getState) => {
     // console.log('fetched posts!')
 
     // if mutiple items ato e async await but one ra ka property ato kwaon like id much better ayaw nlng sa
-    const userIds = _.uniq(_.map(getState().posts, 'userId'))
-    userIds.forEach(id => dispatch(fetchUser(id)))
+    // const userIds = _.uniq(_.map(getState().posts, 'userId'))
+    // userIds.forEach(id => dispatch(fetchUser(id)))
+
+    // chaining using lodash
+    _.chain(getState().posts)
+      .map('userId')
+      .uniq()
+      .forEach(id => dispatch(fetchUser(id)))
+      .value()
 }
