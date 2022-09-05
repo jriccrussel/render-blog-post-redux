@@ -3,21 +3,22 @@ import { connect } from 'react-redux'
 import { fetchUser } from '../actions'
 
 class UserHeader extends Component {
-    componentDidMount(){
-        this.props.fetchUser(this.props.userId)
-    }    
+    // componentDidMount(){
+    //     this.props.fetchUser(this.props.userId)
+    // }    
 
     render() {
         // const user = this.props.users.find(user => user.id === this.props.userId)
         // { user } = this.props - naa na tai access sa state ang userId
-        const { user } = this.props
+        const { users } = this.props
+        // console.log(this.props)
 
-        if(!user) {
+        if(!users) {
             return null
         }
 
         return (
-            <div className='header'>{user.name}</div>
+            <div className='header'>{users.name}</div>
         )
     }
 }
@@ -30,4 +31,5 @@ const mapStateToProps = (state, ownProps) => {
     return { users: state.users.find(user => user.id === ownProps.userId) }
   }
 
-export default connect(mapStateToProps, { fetchUser })(UserHeader)
+// export default connect(mapStateToProps, { fetchUser })(UserHeader)
+export default connect(mapStateToProps)(UserHeader)

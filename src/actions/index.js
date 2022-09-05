@@ -12,16 +12,27 @@ export const fetchPosts = () => async dispatch => {
 }
 
 // fetch user by id
-// export const fetchUser = id => async dispatch => {
-//     const response = await jsonPlaceholder.get(`/users/${id}`)
-  
-//     dispatch({ type: 'FETCH_USER', payload: response.data })
-// }
-export const fetchUser = id => dispatch => _fetchUser(id, dispatch)
-
-// .memoize prevents the api for over fetching
-const _fetchUser = _.memoize(async (id, dispatch) => {
+export const fetchUser = id => async dispatch => {
     const response = await jsonPlaceholder.get(`/users/${id}`)
   
     dispatch({ type: 'FETCH_USER', payload: response.data })
-})
+}
+
+// _fetchUser(id, dispatch) calling _fetchUser
+// export const fetchUser = id => dispatch => _fetchUser(id, dispatch)
+// .memoize prevents the api for over fetching
+// const _fetchUser = _.memoize(async (id, dispatch) => {
+//     const response = await jsonPlaceholder.get(`/users/${id}`)
+  
+//     dispatch({ type: 'FETCH_USER', payload: response.data })
+// })
+
+export const fetchPostsAndUsers = () => async (dispatch, getState) => {
+    // console.log('About to fetch posts')
+    await dispatch(fetchPosts())
+    // console.log('fetched posts!')
+
+    // if mutiple items ato e async await but one ra ka property ato kwaon like id much better ayaw nlng sa
+    const userIds = _.uniq(_.map(getState().posts, 'userId'))
+    userIds.forEach(id => dispatch(fetchUser(id)))
+}
